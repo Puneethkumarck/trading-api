@@ -1,0 +1,28 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+springBoot {
+    buildInfo() {
+        properties {
+            group = rootProject.group
+            artifact = rootProject.name
+            version = rootProject.version
+        }
+    }
+}
+
+dependencies {
+    implementation project(':api')
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation 'commons-cli:commons-cli:1.9.0'
+}
+
+compileJava {
+    options.compilerArgs += [
+            '-Amapstruct.defaultComponentModel=spring',
+            '-Amapstruct.defaultInjectionStrategy=constructor'
+    ]
+}

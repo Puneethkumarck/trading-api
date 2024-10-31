@@ -1,0 +1,82 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version "$springbootVersion" apply false
+	id 'io.spring.dependency-management' version '1.1.6' apply false
+	id "com.diffplug.spotless" version "$spotlessVersion" apply false
+	id "org.sonarqube" version "5.1.0.4882"
+	id 'jacoco'
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+allprojects {
+	group = 'com.xchange.valr'
+	repositories {
+		mavenCentral()
+	}
+}
+
+
+jacoco {
+	toolVersion = "0.8.12"
+}
+
+jar {
+	archiveFileName = "app.jar"
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'jacoco'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'com.diffplug.spotless'
+
+	dependencies {
+		implementation "org.mapstruct:mapstruct:$mapstructVersion"
+		implementation 'com.fasterxml.jackson.core:jackson-databind'
+		compileOnly 'org.projectlombok:lombok'
+
+		annotationProcessor 'org.projectlombok:lombok'
+		annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+		annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+
+		testCompileOnly 'org.projectlombok:lombok'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+		testImplementation 'org.junit.jupiter:junit-jupiter'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+		testAnnotationProcessor 'org.projectlombok:lombok'
+		testAnnotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-dependencies:3.3.4"
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		}
+	}
+
+	spotless {
+		java {
+			targetExclude("build/generated/**/*.java")
+			eclipse().configFile("$rootProject.projectDir/lint/formatter.xml")
+		}
+	}
+
+	jacocoTestReport {
+		dependsOn test
+		reports {
+			xml.required = true
+			html.required = false
+		}
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+		finalizedBy jacocoTestReport
+	}
+}
