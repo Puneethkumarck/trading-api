@@ -1,0 +1,40 @@
+name: build-and-analyze
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build-and-analyze:
+    name: Build and Analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Run Spotless to fix formatting issues
+        run: ./gradlew :api:spotlessApply
+
+      - name: Build with Gradle
+        run: ./gradlew build jacocoTestReport --info
+
+      - name: Verify JaCoCo Report Exists for app
+        run: ls -l solana-app/build/reports/jacoco/test/jacocoTestReport.xml
+
+      - name: Verify JaCoCo Report Exists for api
+        run: ls -l api/build/reports/jacoco/test/jacocoTestReport.xml
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v3.0.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
