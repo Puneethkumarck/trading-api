@@ -24,3 +24,8 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build jacocoTestReport --info
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v3.0.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
