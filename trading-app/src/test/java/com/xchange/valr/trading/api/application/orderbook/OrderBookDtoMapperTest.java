@@ -24,8 +24,8 @@ class OrderBookDtoMapperTest {
     var expected = orderBookDto(BTCZAR.name());
 
     assertThat(result)
-            .usingRecursiveComparison()
-            .ignoringFields("lastChange")
-            .isEqualTo(expected);
+      .usingRecursiveComparison()
+      .ignoringFields("lastChange")
+      .isEqualTo(expected);
   }
 }
