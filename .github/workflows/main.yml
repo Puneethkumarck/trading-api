@@ -29,7 +29,7 @@ jobs:
         run: ./gradlew build jacocoTestReport --info
 
       - name: Verify JaCoCo Report Exists for app
-        run: ls -l solana-app/build/reports/jacoco/test/jacocoTestReport.xml
+        run: ls -l trading-app/build/reports/jacoco/test/jacocoTestReport.xml
 
       - name: Verify JaCoCo Report Exists for api
         run: ls -l api/build/reports/jacoco/test/jacocoTestReport.xml
