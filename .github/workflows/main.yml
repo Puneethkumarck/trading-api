@@ -22,16 +22,5 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Run Spotless to fix formatting issues
-        run: ./gradlew :api:spotlessApply
-
       - name: Build with Gradle
         run: ./gradlew build jacocoTestReport --info
-
-      - name: Verify JaCoCo Report Exists for app
-        run: ls -l trading-app/build/reports/jacoco/test/jacocoTestReport.xml
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v3.0.0
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
