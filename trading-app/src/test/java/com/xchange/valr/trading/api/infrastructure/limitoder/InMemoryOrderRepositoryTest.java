@@ -6,7 +6,6 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import org.junit.jupiter.api.Test;
 
 class InMemoryOrderRepositoryTest {
@@ -34,8 +33,8 @@ class InMemoryOrderRepositoryTest {
 
     // then
     assertThat(retrievedEntity)
-            .usingRecursiveComparison()
-            .isEqualTo(savedEntity);
+      .usingRecursiveComparison()
+      .isEqualTo(savedEntity);
   }
 
   @Test
