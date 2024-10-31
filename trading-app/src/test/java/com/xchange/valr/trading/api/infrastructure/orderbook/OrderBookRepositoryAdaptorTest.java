@@ -36,8 +36,8 @@ class OrderBookRepositoryAdaptorTest {
 
     // then
     assertThat(result)
-            .usingRecursiveComparison()
-            .isEqualTo(orderBook);
+      .usingRecursiveComparison()
+      .isEqualTo(orderBook);
   }
 
   @Test

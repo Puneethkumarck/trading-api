@@ -120,8 +120,8 @@ class OrderBookControllerTest {
     var responseDto = objectMapper.readValue(result.getContentAsString(), ApiError.class);
 
     assertThat(responseDto)
-            .usingRecursiveComparison()
-            .isEqualTo(expected);
+      .usingRecursiveComparison()
+      .isEqualTo(expected);
   }
 
   @ParameterizedTest
@@ -133,6 +133,6 @@ class OrderBookControllerTest {
 
     // when
     mockMvc.perform(get(URI, currencyPair))
-            .andExpect(status().isNotFound());
+      .andExpect(status().isNotFound());
   }
 }

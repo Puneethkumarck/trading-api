@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 api/build/
 trading-app/build/
-
+.gitattributes
 
 ### STS ###
 .apt_generated
