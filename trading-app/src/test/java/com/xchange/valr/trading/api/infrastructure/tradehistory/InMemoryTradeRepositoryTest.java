@@ -69,7 +69,7 @@ class InMemoryTradeRepositoryTest {
     var trade = createTradeEntity(BTCZAR.name(), "buy");
 
     // when
-    var savedTrade = repository.save(trade);
+    repository.save(trade);
     var retrievedTrade = repository.findRecentTradeByCurrencyPair("ETHZAR", 1);
 
     assertThat(retrievedTrade)
