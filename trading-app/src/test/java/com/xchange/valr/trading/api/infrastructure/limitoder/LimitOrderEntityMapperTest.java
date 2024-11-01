@@ -46,7 +46,7 @@ class LimitOrderEntityMapperTest {
       );
 
     assertThat(result)
-            .isEqualTo(expected);
+      .isEqualTo(expected);
   }
 
   @Test
@@ -83,7 +83,7 @@ class LimitOrderEntityMapperTest {
       );
 
     assertThat(result)
-            .isEqualTo(expected);
+      .isEqualTo(expected);
   }
 
   @Test
@@ -120,7 +120,7 @@ class LimitOrderEntityMapperTest {
         .build();
 
     assertThat(result)
-            .isEqualTo(expected);
+      .isEqualTo(expected);
   }
 
   @Test
@@ -157,6 +157,6 @@ class LimitOrderEntityMapperTest {
 
     // then
     assertThat(result)
-            .isEqualTo(expected);
+      .isEqualTo(expected);
   }
 }
