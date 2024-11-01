@@ -13,11 +13,11 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public final class TradeFixtures {
 
-  public static Trade createTrade(String currencyPair, String takerSide) {
+  public static Trade createTrade(String currencyPair, Trade.TakerSide takerSide) {
     return Trade.builder()
       .id(randomUUID().toString())
       .currencyPair(currencyPair)
-      .takerSide(takerSide)
+      .takerSide(takerSide.name())
       .quantity(BigDecimal.ONE)
       .price(new BigDecimal("1000000"))
       .quoteVolume(new BigDecimal("1000000"))

@@ -1,6 +1,5 @@
 package com.xchange.valr.trading.api.infrastructure.tradehistory;
 
-import com.xchange.valr.trading.api.domain.tradehistory.TradeHistoryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.xchange.valr.trading.api.domain.model.CurrencyPair.BTCZAR;
+import static com.xchange.valr.trading.api.domain.tradehistory.Trade.TakerSide.BUY;
 import static com.xchange.valr.trading.fixtures.TradeFixtures.createTrade;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,7 +29,7 @@ class TradeHistoryRepositoryAdaptorTest {
   @Test
   void shouldSaveTrade() {
     // given
-    var trade = createTrade(BTCZAR.name(), "BUY");
+    var trade = createTrade(BTCZAR.name(), BUY);
     var entity =
       TradeEntity.builder()
         .id(trade.id())
@@ -56,7 +56,7 @@ class TradeHistoryRepositoryAdaptorTest {
   @Test
   void shouldFindRecentTrade() {
     // given
-    var trade = createTrade(BTCZAR.name(), "BUY");
+    var trade = createTrade(BTCZAR.name(), BUY);
     var entity =
       TradeEntity.builder()
         .id(trade.id())
@@ -88,7 +88,7 @@ class TradeHistoryRepositoryAdaptorTest {
   @Test
   void shouldFindTradeByOrderId() {
     // given
-    var trade = createTrade(BTCZAR.name(), "BUY");
+    var trade = createTrade(BTCZAR.name(), BUY);
     var entity =
       TradeEntity.builder()
         .id(trade.id())

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.xchange.valr.trading.api.domain.model.CurrencyPair.BTCZAR;
+import static com.xchange.valr.trading.api.domain.tradehistory.Trade.TakerSide.BUY;
 import static com.xchange.valr.trading.fixtures.TradeEntityFixtures.createTradeEntity;
 import static com.xchange.valr.trading.fixtures.TradeFixtures.createTrade;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +18,7 @@ class TradeHistoryEntityMapperTest {
   @Test
   void toEntity() {
     // given
-    var trade = createTrade(BTCZAR.name(), "BUY");
+    var trade = createTrade(BTCZAR.name(), BUY);
 
     // when
     var result = mapper.toEntity(trade);

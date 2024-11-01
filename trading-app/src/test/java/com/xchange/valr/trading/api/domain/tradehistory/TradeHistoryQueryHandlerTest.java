@@ -7,6 +7,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
+
+import static com.xchange.valr.trading.api.domain.tradehistory.Trade.TakerSide.BUY;
+import static com.xchange.valr.trading.api.domain.tradehistory.Trade.TakerSide.SELL;
 import static com.xchange.valr.trading.fixtures.TradeFixtures.createTrade;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -23,7 +26,7 @@ class TradeHistoryQueryHandlerTest {
   void getTradeHistory() {
     // Given
     List<Trade> trades =
-      List.of(createTrade(CURRENCY_PAIR, "SELL"), createTrade(CURRENCY_PAIR, "BUY"));
+      List.of(createTrade(CURRENCY_PAIR, SELL), createTrade(CURRENCY_PAIR, BUY));
     when(tradeHistoryRepository.findRecentTradesByCurrencyPair(CURRENCY_PAIR, 10))
       .thenReturn(Optional.of(trades));
 
