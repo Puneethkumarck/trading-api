@@ -31,8 +31,8 @@ class TradeHistoryDtoMapperTest {
       .build();
 
     assertThat(tradeDto)
-            .usingRecursiveComparison()
-            .isEqualTo(expected);
+      .usingRecursiveComparison()
+      .isEqualTo(expected);
   }
 
 }
