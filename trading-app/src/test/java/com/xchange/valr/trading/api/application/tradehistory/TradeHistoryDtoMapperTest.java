@@ -5,6 +5,7 @@ import com.xchange.valr.api.model.TradeHistoryResponseDto;
 import static com.xchange.valr.trading.api.domain.model.CurrencyPair.BTCZAR;
 import static com.xchange.valr.trading.api.domain.tradehistory.Trade.TakerSide.BUY;
 import static com.xchange.valr.trading.fixtures.TradeFixtures.createTrade;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class TradeHistoryDtoMapperTest {
 
@@ -28,6 +29,10 @@ class TradeHistoryDtoMapperTest {
       .id(trade.id())
       .quoteVolume(trade.quoteVolume())
       .build();
+
+    assertThat(tradeDto)
+            .usingRecursiveComparison()
+            .isEqualTo(expected);
   }
 
 }
