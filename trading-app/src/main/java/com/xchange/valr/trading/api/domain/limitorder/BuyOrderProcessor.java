@@ -3,7 +3,6 @@ package com.xchange.valr.trading.api.domain.limitorder;
 import com.xchange.valr.trading.api.domain.orderbook.OrderBook;
 
 import java.math.BigDecimal;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentNavigableMap;
 
 public class BuyOrderProcessor extends OrderProcessor {
