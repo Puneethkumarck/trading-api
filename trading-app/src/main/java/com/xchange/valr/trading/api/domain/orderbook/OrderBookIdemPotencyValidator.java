@@ -4,6 +4,7 @@ import com.xchange.valr.trading.api.domain.limitorder.LimitOrderCommand;
 import com.xchange.valr.trading.api.domain.limitorder.LimitOrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -19,7 +20,8 @@ public class OrderBookIdemPotencyValidator {
   }
 
   private Optional<LimitOrderCommand> validateOrderIdempotency(LimitOrderCommand command) {
-    if (orderRepository.findByOrderId(command.customerOrderId()).isPresent()) {
+    if (StringUtils.isNotBlank(command.customerOrderId()) && orderRepository.findByOrderId(command.customerOrderId())
+      .isPresent()) {
       log.warn("Attempted to place duplicate order with orderId: {}", command.customerOrderId());
       throw LimitOrderAlreadyExistsException.withOrderId(command.customerOrderId());
     }

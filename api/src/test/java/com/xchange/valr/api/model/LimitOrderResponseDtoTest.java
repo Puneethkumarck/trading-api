@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LimitOrderResponseTest {
+class LimitOrderResponseDtoTest {
 
   @Test
   void testLimitOrderResponse() {
     // given
-    var response = LimitOrderResponse.builder()
+    var response = LimitOrderResponseDto.builder()
       .orderId("orderId")
       .build();
     // when

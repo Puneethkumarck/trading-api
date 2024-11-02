@@ -1,6 +1,7 @@
 package com.xchange.valr.trading.api.application.exception;
 
 import com.xchange.valr.api.model.ApiError;
+import com.xchange.valr.trading.api.domain.orderbook.LimitOrderAlreadyExistsException;
 import com.xchange.valr.trading.api.domain.orderbook.OrderBookNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,14 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ApiError> handleOrderBookNotFoundException(OrderBookNotFoundException ex) {
     var error = ApiError.toApiError("ORDER_BOOK_NOT_FOUND", NOT_FOUND, ex.getMessage(), null);
     return ResponseEntity.status(NOT_FOUND).body(error);
+  }
+
+  @ExceptionHandler(LimitOrderAlreadyExistsException.class)
+  public ResponseEntity<ApiError> handleLimitOrderIdAlreadyExistException(
+    LimitOrderAlreadyExistsException ex
+  ) {
+    var error = ApiError.toApiError("ORDER_ID_ALREADY_EXIST", CONFLICT, ex.getMessage(), null);
+    return ResponseEntity.status(CONFLICT).body(error);
   }
 
   @ExceptionHandler(BindException.class)
