@@ -5,5 +5,5 @@ import lombok.extern.jackson.Jacksonized;
 
 @Builder
 @Jacksonized
-public record LimitOrderResponse(String orderId) {
+public record LimitOrderResponseDto(String orderId) {
 }

@@ -1,6 +1,7 @@
 package com.xchange.valr.trading.api.application.exception;
 
 import com.xchange.valr.api.model.ApiError;
+import com.xchange.valr.trading.api.domain.orderbook.LimitOrderAlreadyExistsException;
 import com.xchange.valr.trading.api.domain.orderbook.OrderBookNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +37,29 @@ class GlobalExceptionHandlerTest {
           ApiError.toApiError(
             "ORDER_BOOK_NOT_FOUND",
             NOT_FOUND,
+            exception.getMessage(),
+            null
+          )
+        );
+
+    assertThat(result).usingRecursiveComparison().isEqualTo(expected);
+  }
+
+  @Test
+  void limitOrderAlreadyExistsException() {
+    // given
+    var exception = LimitOrderAlreadyExistsException.withOrderId("123");
+
+    // when
+    var result = globalExceptionHandler.handleLimitOrderIdAlreadyExistException(exception);
+
+    // then
+    var expected =
+      ResponseEntity.status(CONFLICT)
+        .body(
+          ApiError.toApiError(
+            "ORDER_ID_ALREADY_EXIST",
+            CONFLICT,
             exception.getMessage(),
             null
           )

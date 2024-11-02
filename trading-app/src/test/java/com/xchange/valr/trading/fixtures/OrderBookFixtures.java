@@ -49,4 +49,35 @@ public final class OrderBookFixtures {
       .sequenceNumber(1L)
       .build();
   }
+
+  public static OrderBook createOrderBook(
+    BigDecimal price,
+    BigDecimal quantity,
+    String currencyPair,
+    OrderBook.OrderBookSide side
+  ) {
+
+    var orderBookLevel =
+      OrderBook.OrderBookLevel.builder()
+        .side(side)
+        .price(price)
+        .quantity(quantity)
+        .currencyPair(currencyPair)
+        .orderCount(1)
+        .build();
+
+    return OrderBook.builder()
+      .currencyPair(currencyPair)
+      .asks(
+        side == OrderBook.OrderBookSide.SELL
+          ? new TreeMap<>(Map.of(price, orderBookLevel))
+          : new TreeMap<>()
+      )
+      .bids(
+        side == OrderBook.OrderBookSide.BUY
+          ? new TreeMap<>(Map.of(price, orderBookLevel))
+          : new TreeMap<>()
+      )
+      .build();
+  }
 }
