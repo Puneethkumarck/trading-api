@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -42,6 +43,7 @@ class TradeHistoryControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnTradeHistoryWithDefaultPageSize() {
     // given
     var trade = createTrade(BTCZAR.name(), BUY);
@@ -68,6 +70,7 @@ class TradeHistoryControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnTradeHistoryWithCustomPageSize() {
     // given
     var trade = createTrade(BTCZAR.name(), BUY);
@@ -93,7 +96,8 @@ class TradeHistoryControllerTest {
   }
 
   @Test
-    @SneakyThrows
+  @SneakyThrows
+  @WithMockUser
     void shouldReturnEmptyTradeHistoryWhenNoTradesFound() {
         // given
         when(handler.getTradeHistory(BTCZAR.name(), 50)).thenReturn(Optional.empty());
@@ -106,8 +110,7 @@ class TradeHistoryControllerTest {
                         .andReturn()
                         .getResponse();
 
-        var responseDtos =
-                parseResponse(response, new TypeReference<List<TradeHistoryResponseDto>>() {});
+        var responseDtos = parseResponse(response, new TypeReference<List<TradeHistoryResponseDto>>() {});
 
         // then
         assertThat(responseDtos).isEmpty();
