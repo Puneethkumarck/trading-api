@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import static com.xchange.valr.trading.api.domain.model.CurrencyPair.BTCZAR;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,8 +24,8 @@ abstract class OrderProcessorBaseTest {
   protected OrderBook createOrderBook() {
     return OrderBook.builder()
       .currencyPair(BTCZAR.name())
-      .asks(new TreeMap<>())
-      .bids(new TreeMap<>())
+      .asks(new ConcurrentSkipListMap<>())
+      .bids(new ConcurrentSkipListMap<>())
       .build();
   }
 

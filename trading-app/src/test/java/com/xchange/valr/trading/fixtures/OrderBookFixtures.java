@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import static com.xchange.valr.trading.api.domain.orderbook.OrderBook.OrderBookSide.BUY;
 import static com.xchange.valr.trading.api.domain.orderbook.OrderBook.OrderBookSide.SELL;
@@ -18,7 +19,7 @@ public final class OrderBookFixtures {
     return OrderBook.builder()
       .currencyPair(currencyPair)
       .asks(
-        new TreeMap<>(
+        new ConcurrentSkipListMap<>(
           Map.of(
             new BigDecimal("1000000"),
             OrderBook.OrderBookLevel.builder()
@@ -32,7 +33,7 @@ public final class OrderBookFixtures {
         )
       )
       .bids(
-        new TreeMap<>(
+        new ConcurrentSkipListMap<>(
           Map.of(
             new BigDecimal("900000"),
             OrderBook.OrderBookLevel.builder()
@@ -70,13 +71,13 @@ public final class OrderBookFixtures {
       .currencyPair(currencyPair)
       .asks(
         side == OrderBook.OrderBookSide.SELL
-          ? new TreeMap<>(Map.of(price, orderBookLevel))
-          : new TreeMap<>()
+          ? new ConcurrentSkipListMap<>(Map.of(price, orderBookLevel))
+          : new ConcurrentSkipListMap<>()
       )
       .bids(
         side == OrderBook.OrderBookSide.BUY
-          ? new TreeMap<>(Map.of(price, orderBookLevel))
-          : new TreeMap<>()
+          ? new ConcurrentSkipListMap<>(Map.of(price, orderBookLevel))
+          : new ConcurrentSkipListMap<>()
       )
       .build();
   }
