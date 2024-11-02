@@ -357,10 +357,14 @@ sequenceDiagram
 ```bash
 # Build the project
 ./gradlew clean build
+```
 
+```bash
 # Run tests
 ./gradlew test
+```
 
+```bash
 # Run the application
 ./gradlew bootRun
 ```
