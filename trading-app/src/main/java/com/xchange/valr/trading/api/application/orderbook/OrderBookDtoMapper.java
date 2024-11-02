@@ -9,6 +9,7 @@ import org.mapstruct.Named;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentNavigableMap;
 
 @Mapper
 public interface OrderBookDtoMapper {
@@ -19,7 +20,7 @@ public interface OrderBookDtoMapper {
 
   @Named("mapOrderBookLevels")
   default List<OrderBookResponseDto.OrderBookEntryDto> mapOrderBookLevels(
-    TreeMap<BigDecimal, OrderBook.OrderBookLevel> levels
+    ConcurrentNavigableMap<BigDecimal, OrderBook.OrderBookLevel> levels
   ) {
 
     if (levels == null || levels.isEmpty()) {

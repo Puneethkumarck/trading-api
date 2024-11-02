@@ -8,13 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentNavigableMap;
 
 @Slf4j
 @Builder(toBuilder = true)
 public record OrderBook(
   String currencyPair,
-  TreeMap<BigDecimal, OrderBookLevel> asks,
-  TreeMap<BigDecimal, OrderBookLevel> bids,
+  ConcurrentNavigableMap<BigDecimal, OrderBookLevel> asks,
+  ConcurrentNavigableMap<BigDecimal, OrderBookLevel> bids,
   Instant lastChange,
   Long sequenceNumber
 ) {

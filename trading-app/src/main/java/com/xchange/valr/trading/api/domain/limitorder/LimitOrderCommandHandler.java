@@ -12,7 +12,8 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+
 import static com.xchange.valr.trading.api.domain.limitorder.LimitOrderCommand.LimitOrder.OrderBookSide.BUY;
 import static com.xchange.valr.trading.api.domain.limitorder.LimitOrderCommand.LimitOrder.OrderBookSide.SELL;
 import static java.util.UUID.randomUUID;
@@ -55,8 +56,8 @@ public class LimitOrderCommandHandler {
       .orElseGet(
         () -> OrderBook.builder()
           .currencyPair(currencyPair)
-          .asks(new TreeMap<>())
-          .bids(new TreeMap<>())
+          .asks(new ConcurrentSkipListMap<>())
+          .bids(new ConcurrentSkipListMap<>())
           .build()
       );
   }

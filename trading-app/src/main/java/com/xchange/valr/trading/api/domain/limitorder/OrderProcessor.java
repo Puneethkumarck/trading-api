@@ -4,11 +4,12 @@ import com.xchange.valr.trading.api.domain.orderbook.OrderBook;
 
 import java.math.BigDecimal;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentNavigableMap;
 
 abstract class OrderProcessor {
-  protected abstract TreeMap<BigDecimal, OrderBook.OrderBookLevel> getMatchingSide(OrderBook orderBook);
+  protected abstract ConcurrentNavigableMap<BigDecimal, OrderBook.OrderBookLevel> getMatchingSide(OrderBook orderBook);
 
-  protected abstract TreeMap<BigDecimal, OrderBook.OrderBookLevel> getPlacementSide(OrderBook orderBook);
+  protected abstract ConcurrentNavigableMap<BigDecimal, OrderBook.OrderBookLevel> getPlacementSide(OrderBook orderBook);
 
   protected abstract boolean canMatch(BigDecimal orderPrice, BigDecimal matchPrice);
 
@@ -60,7 +61,7 @@ abstract class OrderProcessor {
   }
 
   private void updateMatchLevel(
-    TreeMap<BigDecimal, OrderBook.OrderBookLevel> side,
+    ConcurrentNavigableMap<BigDecimal, OrderBook.OrderBookLevel> side,
     BigDecimal price,
     OrderBook.OrderBookLevel level,
     BigDecimal matchedQuantity
@@ -82,7 +83,7 @@ abstract class OrderProcessor {
     String currencyPair,
     BigDecimal price,
     BigDecimal quantity,
-    TreeMap<BigDecimal, OrderBook.OrderBookLevel> side
+    ConcurrentNavigableMap<BigDecimal, OrderBook.OrderBookLevel> side
   ) {
     var existingLevel = side.get(price);
     if (existingLevel != null) {
