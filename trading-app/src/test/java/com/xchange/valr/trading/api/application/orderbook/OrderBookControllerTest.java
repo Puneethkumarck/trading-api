@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(OrderBookController.class)
@@ -40,6 +41,7 @@ class OrderBookControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnOrderBookForValidPair() {
     // given
     given(orderBookQueryHandler.getOrderBook(BTCZAR.name())).willReturn(orderBook(BTCZAR.name()));
@@ -66,6 +68,7 @@ class OrderBookControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnOrderBookForCurrencyInsensitivePair() {
     // given
     var currencyPair = "BTCZAR";
@@ -95,6 +98,7 @@ class OrderBookControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturn404ForInvalidCurrencyPair() {
     // given
     var currencyPair = "BTCBBB";
@@ -127,6 +131,7 @@ class OrderBookControllerTest {
   @ParameterizedTest
   @ValueSource(strings = {"", " ", "  "})
   @SneakyThrows
+  @WithMockUser
   void shouldReturnNotFoundForEmptyCurrencyPair() {
     // given
     var currencyPair = "";

@@ -3,6 +3,7 @@ package com.xchange.valr.trading.api.application.limitorder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xchange.valr.trading.api.domain.limitorder.LimitOrderCommandHandler;
 import com.xchange.valr.trading.api.infrastructure.config.GlobalConfig;
+import com.xchange.valr.trading.api.infrastructure.config.SecurityConfig;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import com.xchange.valr.api.model.LimitOrderResponseDto;
 
@@ -27,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(LimitOrderController.class)
-@Import({LimitOrderDtoMapperImpl.class, GlobalConfig.class})
+@Import({LimitOrderDtoMapperImpl.class, GlobalConfig.class, SecurityConfig.class})
 class LimitOrderControllerTest {
   @Autowired
   private MockMvc mockMvc;
@@ -41,6 +43,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldPlaceLimitOrderSuccessFully() {
     // given
     var request = limitOrderRequestDto();
@@ -70,6 +73,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenCurrencyPairIsNull() {
     // given
     var request = limitOrderRequestDto().toBuilder().pair(null).build();
@@ -87,6 +91,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenQuantityIsnull() {
     // given
     var request = limitOrderRequestDto().toBuilder().quantity(null).build();
@@ -104,6 +109,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenPriceIsNull() {
     // given
     var request = limitOrderRequestDto().toBuilder().price(null).build();
@@ -121,6 +127,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenSideIsNull() {
     // given
     var request = limitOrderRequestDto().toBuilder().side(null).build();
@@ -138,6 +145,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenSideIsInvalid() {
     // given
     var request = limitOrderRequestDto().toBuilder().side("INVALID").build();
@@ -155,6 +163,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenQuantityIsLessThanZero() {
     // given
     var request = limitOrderRequestDto().toBuilder().quantity(BigDecimal.valueOf(-1)).build();
@@ -172,6 +181,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenPriceIsLessThanZero() {
     // given
     var request = limitOrderRequestDto().toBuilder().price(BigDecimal.valueOf(-1)).build();
@@ -189,6 +199,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenCustomerOrderIdIsInvalid() {
     // given
     var request = limitOrderRequestDto().toBuilder().customerOrderId("INVALID$ORDER$ID").build();
@@ -206,6 +217,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenCustomerOrderIdIsGreaterThan50Characters() {
     // given
     var request =
@@ -229,6 +241,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldReturnBadRequestWhenTimeInForceIsInvalid() {
     // given
     var request = limitOrderRequestDto().toBuilder().timeInForce("INVALID").build();
@@ -248,6 +261,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldNotReturnBadRequestWhenPostOnlyIsNull() {
     // given
     var request = limitOrderRequestDto().toBuilder().postOnly(null).build();
@@ -264,6 +278,7 @@ class LimitOrderControllerTest {
 
   @Test
   @SneakyThrows
+  @WithMockUser
   void shouldNotReturnBadRequestWhenTimeInForceIsNull() {
     // given
     var request = limitOrderRequestDto().toBuilder().timeInForce(null).build();
