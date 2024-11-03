@@ -51,6 +51,7 @@ The Trading API is a Spring Boot application that implements a cryptocurrency tr
 - Input validation
 - Error handling with appropriate HTTP status codes
 - API documentation with OpenAPI/Swagger
+- Spring Security basic authentication
 
 ## Technology Stack
 
