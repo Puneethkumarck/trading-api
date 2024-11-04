@@ -4,6 +4,7 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Puneethkumarck_trading-api&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Puneethkumarck_trading-api)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Puneethkumarck_trading-api&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Puneethkumarck_trading-api)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Puneethkumarck_trading-api&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Puneethkumarck_trading-api)
+[![Deployed on Railway](https://railway.app/button.svg)](https://railway.app/template/aYpw1-?referralCode=F4Yi_e)
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/685178-34771dde-0c1a-4fa2-8613-14a572120e88?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D685178-34771dde-0c1a-4fa2-8613-14a572120e88%26entityType%3Dcollection%26workspaceId%3De03b2ab3-447a-4a5f-8818-be163b36a6e7#?env%5Brailway%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovL2NyeXB0by1hcGktcHJvZHVjdGlvbi00NzNhLnVwLnJhaWx3YXkuYXBwIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6ImRlZmF1bHQifV0=)
 
 # Trading API
