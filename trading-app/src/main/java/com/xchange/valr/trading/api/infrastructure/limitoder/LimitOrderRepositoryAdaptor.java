@@ -4,12 +4,13 @@ import com.xchange.valr.trading.api.domain.limitorder.LimitOrderCommand;
 import com.xchange.valr.trading.api.domain.limitorder.LimitOrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class LimitOrderRepositoryAdaptor implements LimitOrderRepository {
 
