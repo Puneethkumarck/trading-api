@@ -13,6 +13,8 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 
 import static com.xchange.valr.trading.api.domain.model.CurrencyPair.BTCZAR;
+import static com.xchange.valr.trading.api.domain.orderbook.LimitOrderAlreadyExistsException.withOrderId;
+import static com.xchange.valr.trading.api.domain.orderbook.OrderBookNotFoundException.withCurrencyPair;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -20,15 +22,15 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @ExtendWith(MockitoExtension.class)
 class GlobalExceptionHandlerTest {
   @InjectMocks
-  private GlobalExceptionHandler globalExceptionHandler;
+  private GlobalExceptionHandler handler;
 
   @Test
   void handleOrderBookNotFoundException() {
     // given
-    var exception = OrderBookNotFoundException.withCurrencyPair(BTCZAR.name());
+    var exception = withCurrencyPair(BTCZAR.name());
 
     // when
-    var result = globalExceptionHandler.handleOrderBookNotFoundException(exception);
+    var result = handler.handleOrderBookNotFoundException(exception);
 
     // then
     var expected =
@@ -48,10 +50,10 @@ class GlobalExceptionHandlerTest {
   @Test
   void limitOrderAlreadyExistsException() {
     // given
-    var exception = LimitOrderAlreadyExistsException.withOrderId("123");
+    var exception = withOrderId("123");
 
     // when
-    var result = globalExceptionHandler.handleLimitOrderIdAlreadyExistException(exception);
+    var result = handler.handleLimitOrderIdAlreadyExistException(exception);
 
     // then
     var expected =
@@ -76,7 +78,7 @@ class GlobalExceptionHandlerTest {
     var exception = new BindException(bindingResult);
 
     // when
-    var result = globalExceptionHandler.handleMethodArgumentNotValidException(exception);
+    var result = handler.handleMethodArgumentNotValidException(exception);
 
     // then
     var expected =

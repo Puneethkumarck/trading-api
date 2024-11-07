@@ -5,18 +5,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
 @RequiredArgsConstructor
 public class InMemoryTradeRepository {
-  private final Map<String, List<TradeEntity>> trades = new ConcurrentHashMap<>();
+  private final Map<String, CopyOnWriteArrayList<TradeEntity>> trades = new ConcurrentHashMap<>();
   private final AtomicLong sequenceGenerator = new AtomicLong(1300890000000000000L);
 
   public Optional<TradeEntity> save(TradeEntity trade) {
@@ -29,7 +28,7 @@ public class InMemoryTradeRepository {
         .build();
 
     trades
-      .computeIfAbsent(trade.currencyPair().toUpperCase(), key -> new ArrayList<>())
+      .computeIfAbsent(trade.currencyPair().toUpperCase(), key -> new CopyOnWriteArrayList<>())
       .add(updatedTrade);
 
     log.debug("Saved trade: {} for currency pair: {}", trade.id(), trade.currencyPair());
@@ -38,11 +37,11 @@ public class InMemoryTradeRepository {
 
   public Optional<List<TradeEntity>> findRecentTradeByCurrencyPair(String currencyPair, int limit) {
     return Optional.of(
-      trades.getOrDefault(currencyPair.toUpperCase(), new ArrayList<>())
+      trades.getOrDefault(currencyPair.toUpperCase(), new CopyOnWriteArrayList<>())
         .stream()
-        .sorted((a, b) -> b.tradedAt().compareTo(a.tradedAt()))
+        .sorted(Comparator.comparing(TradeEntity::tradedAt).reversed())
         .limit(limit)
-        .toList()
+        .collect(Collectors.toList())
     );
   }
 
