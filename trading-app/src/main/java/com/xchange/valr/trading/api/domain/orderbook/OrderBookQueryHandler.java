@@ -13,8 +13,12 @@ public class OrderBookQueryHandler {
 
   public OrderBook getOrderBook(String currencyPair) {
     log.info("Getting order book for currency pair: {}", currencyPair);
-    return orderBookRepository
+    OrderBook orderBook = orderBookRepository
       .findByCurrencyPair(currencyPair)
       .orElseThrow(() -> OrderBookNotFoundException.withCurrencyPair(currencyPair));
+
+    return orderBook.toBuilder()
+      .bids(orderBook.bids().descendingMap())
+      .build();
   }
 }
