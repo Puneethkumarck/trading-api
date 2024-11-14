@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentNavigableMap;
 public class SellOrderProcessor extends OrderProcessor {
   @Override
   protected ConcurrentNavigableMap<BigDecimal, OrderBook.OrderBookLevel> getMatchingSide(OrderBook orderBook) {
-    return orderBook.bids();
+    return orderBook.bids().descendingMap();
   }
 
   @Override
